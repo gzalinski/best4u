@@ -7,6 +7,38 @@
  * @package best4u
  */
 
+
+
+
+//define( 'carbon_dir', get_template_directory_uri().'/carbon-fields/' );
+// OR
+
+define( 'carbon_dir', get_stylesheet_directory() .'/carbon-fields/' );
+
+/**
+#1 Carbon Fields  - инициализация
+ **/
+
+require_once( carbon_dir.'carbon-fields-plugin.php' );
+add_action( 'after_setup_theme', 'carbon_fields_load' );
+function carbon_fields_load() {
+    require_once( carbon_dir.'vendor/autoload.php' );
+    \Carbon_Fields\Carbon_Fields::boot();
+}
+
+
+/**
+#2. Подключим все PHP файлы из поддиректории плагина
+url: https://wp-kama.ru/function/plugin_dir_path
+ **/
+
+foreach ( glob( carbon_dir."my-fields/*.php" ) as $file ){
+    include_once $file;
+}
+
+
+
+
 if ( ! function_exists( 'best4u_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
